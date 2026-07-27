@@ -10,7 +10,7 @@
 </p>
 
 <p align="center">
-  Built for <strong>SFHS CODE Hack 7</strong> • By <strong>TriCode Club</strong>
+  By <strong>TriCode Club Labs</strong>
 </p>
 
 ---
@@ -19,24 +19,35 @@
 
 TRACE is a desktop application for exploring and understanding software projects.
 
-Open a local project or clone a public GitHub repository, browse the project structure, inspect source code, preview images, review documentation, and analyze project dependencies from a clean desktop interface.
+Open a local project or clone a public GitHub repository, browse project files, inspect source code, preview images, review documentation, analyze dependencies, and understand repository structure from a modern desktop interface.
 
-Originally developed for **SFHS CODE Hack 7**, TRACE is now an ongoing project that will continue to expand with new features and improvements.
+Originally built for **SFHS CODE Hack 7**, TRACE is now an active **TriCode Club Labs** project that will continue to evolve with new features and improvements.
+
+---
+
+## Credits
+
+| Component | Credits |
+|----------|---------|
+| Python | https://python.org |
+| CustomTkinter | https://customtkinter.tomschimansky.com |
+| Pillow | https://python-pillow.org |
+| Git | https://git-scm.com |
+| GitHub REST API | https://docs.github.com/en/rest |
+| Color Palette | https://coolors.co |
 
 ---
 
 ## Features
 
-- Clone public GitHub repositories
-- Open and analyze local projects
-- Project file explorer
+- Local & GitHub repository support
+- Repository exploration
 - Source code viewer
+- Project documentation viewer
+- Repository insights
 - Image preview
-- README and documentation viewer
-- Dependency inspection
-- Repository statistics
-- Modern CustomTkinter interface
-- Light theme inspired by TriCode Club
+- Dependency analysis
+- Modern desktop interface
 
 ---
 
@@ -44,37 +55,23 @@ Originally developed for **SFHS CODE Hack 7**, TRACE is now an ongoing project t
 
 ### Loading Screen
 
-![Loading Screen](assets/loading.png)
+<p align="center">
+  <img src="assets/loading.png" alt="Loading Screen" width="700">
+</p>
 
 ### Project Selection
 
-![Project Selection](assets/project-selection.png)
+<p align="center">
+  <img src="assets/selection.png" alt="Project Selection" width="700">
+</p>
 
-### Analysis Window
+### Project Analysis
 
-![Analysis Window](assets/analysis.png)
+<p align="center">
+  <img src="assets/analysis.png" alt="Analysis Window" width="700">
+</p>
 
 > Screenshots will be updated as TRACE evolves.
-
----
-
-## Built With
-
-| Library | Website | Repository |
-|----------|---------|------------|
-| Python | https://python.org | https://github.com/python |
-| CustomTkinter | https://customtkinter.tomschimansky.com | https://github.com/TomSchimansky/CustomTkinter |
-| Pillow | https://python-pillow.org | https://github.com/python-pillow/Pillow |
-| Git | https://git-scm.com | https://github.com/git/git |
-| GitHub REST API | https://docs.github.com/en/rest | — |
-
----
-
-## Design
-
-Color palette generated using **Coolors**.
-
-https://coolors.co/
 
 ---
 
@@ -85,22 +82,22 @@ https://coolors.co/
 | Akshat Jain | Developer |
 | Mridul Thakur | Developer |
 
-Maintained by **TriCode Club**.
+Maintained by **TriCode Club Labs**.
 
 ---
 
 ## Roadmap
 
 | Status | Feature |
-|:-----:|---------|
+|:------:|---------|
 | ⏳ | GTK4 desktop version |
 | ⏳ | Official TRACE website |
 | ⏳ | Cloud-based repository analysis |
-| ⏳ | Integration with the TriCode Development Suite |
-| ⏳ | Better repository statistics & insights |
-| ⏳ | Rich Markdown rendering |
-| ⏳ | Faster analysis engine |
 | ⏳ | Cross-platform support (Linux, Windows & macOS) |
+| ⏳ | Integration with the TriCode Development Suite |
+| ⏳ | Rich Markdown rendering |
+| ⏳ | Better repository statistics & insights |
+| ⏳ | Faster analysis engine |
 
 ---
 
@@ -132,10 +129,10 @@ You may use the software for personal, educational, and non-commercial purposes.
 
 Redistribution, modification, or commercial distribution without permission is prohibited.
 
-The developers and TriCode Club are not responsible for any misuse, exploits, damages, or data loss resulting from the use of this software.
+The developers and TriCode Club Labs are not responsible for any misuse, damages, or data loss resulting from the use of this software.
 
 ---
 
 <p align="center">
-Made with ❤️ by <strong>TriCode Club</strong>
+Made with ❤️ by <strong>TriCode Club Labs</strong>
 </p>

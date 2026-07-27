@@ -62,7 +62,7 @@ Originally built for **SFHS CODE Hack 7**, TRACE is now an active **TriCode Club
 ### Project Selection
 
 <p align="center">
-  <img src="assets/selection.png" alt="Project Selection" width="600">
+  <img src="assets/selection.png" alt="Project Selection" width="500">
 </p>
 
 ### Project Analysis

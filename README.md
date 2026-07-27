@@ -56,13 +56,13 @@ Originally built for **SFHS CODE Hack 7**, TRACE is now an active **TriCode Club
 ### Loading Screen
 
 <p align="center">
-  <img src="assets/loading.png" alt="Loading Screen" width="700">
+  <img src="assets/loading.png" alt="Loading Screen" width="400">
 </p>
 
 ### Project Selection
 
 <p align="center">
-  <img src="assets/selection.png" alt="Project Selection" width="700">
+  <img src="assets/selection.png" alt="Project Selection" width="600">
 </p>
 
 ### Project Analysis

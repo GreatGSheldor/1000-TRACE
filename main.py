@@ -35,6 +35,16 @@ CURRENT_PROJECT_PATH = None
 CURRENT_REPO_URL = None
 CURRENT_REPO_INFO = None
 
+IMAGE_EXTENSIONS = {
+    ".png",
+    ".jpg",
+    ".jpeg",
+    ".gif",
+    ".bmp",
+    ".webp",
+    ".ico",
+    ".tiff",
+}
 
 def update_window():
     root.title(window_title)
@@ -205,7 +215,7 @@ def find_readme(path):
     for name in candidates:
         file_path = path / name
         if file_path.exists():
-            return file_path
+            return file_path 
 
     for item in sorted(path.rglob("*")):
         if item.is_file() and item.name.lower().startswith("readme"):
@@ -647,7 +657,7 @@ def project_selection_screen():
             project_desc_datec_label.configure(text="Creation Date: N/A")
             project_datem_label.configure(text="Last Modified Date: N/A")
 
-    button_frame = ctk.CTkFrame(root, fg_color="transparent")
+    button_frame = ctk.CTkFrame(root, fg_color="transparent", border_width=0)
     button_frame.pack(pady=(0, 20))
 
     load_button = ctk.CTkButton(button_frame, text="Load Project", font=BODYBIG, text_color="white", border_width=5, height=50, width=220, command=load_project)
@@ -660,8 +670,8 @@ def project_selection_screen():
 def analysis_screen():
     global window_width, window_height, window_title
 
-    window_width = 1400
-    window_height = 900
+    window_width = 1500
+    window_height = 1000
     window_title = "TRACE v1.0 - Analysis"
 
     update_window()
@@ -675,40 +685,61 @@ def analysis_screen():
 
     analysis = analyze_repository(CURRENT_PROJECT_PATH)
 
-    header_frame = ctk.CTkFrame(root, fg_color="transparent")
+    header_frame = ctk.CTkFrame(root, fg_color="transparent", border_width=0)
     header_frame.pack(fill="x", padx=20, pady=(15, 10))
 
-    title_label = ctk.CTkLabel(header_frame, text=f"Analysis: {CURRENT_PROJECT_PATH.name}", font=HERO)
+    header_row = ctk.CTkFrame(header_frame, fg_color="transparent", border_width=0)
+    header_row.pack(fill="x")
+
+    title_container = ctk.CTkFrame(header_row, fg_color="transparent", border_width=0)
+    title_container.pack(side="left", fill="x", expand=True)
+
+    title_label = ctk.CTkLabel(title_container, text=f"Analysis: {CURRENT_PROJECT_PATH.name}", font=HERO)
     title_label.pack(anchor="w")
 
-    subtitle_label = ctk.CTkLabel(header_frame, text="Repository overview", font=BODYBIG)
+    subtitle_label = ctk.CTkLabel(title_container, text="Repository overview", font=BODYBIG)
     subtitle_label.pack(anchor="w", pady=(5, 0))
 
-    back_button = ctk.CTkButton(header_frame, text="Back", command=project_selection_screen)
-    back_button.pack(anchor="e", pady=(0, 10))
+    back_button = ctk.CTkButton(header_row, text="Back", command=project_selection_screen, width=100, height=36)
+    back_button.pack(side="right")
 
-    summary_frame = ctk.CTkFrame(root, corner_radius=12, border_width=1)
-    summary_frame.pack(fill="x", padx=20, pady=(0, 10))
+    summary_frame = ctk.CTkFrame(root, fg_color="#ecd1b0", corner_radius=16, border_width=1)
+    summary_frame.pack(fill="x", padx=20, pady=(0, 12))
 
-    summary_inner = ctk.CTkFrame(summary_frame, fg_color="transparent")
+    summary_inner = ctk.CTkFrame(summary_frame, fg_color="transparent", border_width=0)
     summary_inner.pack(fill="x", padx=16, pady=12)
 
-    summary_label = ctk.CTkLabel(summary_inner, text=f"Files: {analysis['file_count']}   |   Owner: {CURRENT_REPO_INFO.get('owner', 'N/A') if CURRENT_REPO_INFO else 'N/A'}", font=BODYBIG)
-    summary_label.pack(anchor="w")
+    def add_stat_card(parent, label, value, accent):
+        card = ctk.CTkFrame(parent, fg_color="#ecd1b0", corner_radius=12, border_width=1)
+        card.pack(side="left", fill="both", expand=True, padx=(0, 10), pady=4)
 
-    content_frame = ctk.CTkFrame(root, fg_color="transparent")
+        card_label = ctk.CTkLabel(card, text=label, font=BODY, text_color="#64748b")
+        card_label.pack(anchor="w", padx=12, pady=(10, 0))
+
+        card_value = ctk.CTkLabel(card, text=value, font=SUBHEADING, text_color=accent)
+        card_value.pack(anchor="w", padx=12, pady=(2, 10))
+
+    add_stat_card(summary_inner, "Project", CURRENT_PROJECT_PATH.name, "#2563eb")
+    add_stat_card(summary_inner, "Files", str(analysis["file_count"]), "#7c3aed")
+    add_stat_card(summary_inner, "Languages", str(len(analysis["languages"])), "#802084")
+    add_stat_card(summary_inner, "Dependencies", str(len(analysis["libraries"])), "#ea580c")
+
+    content_frame = ctk.CTkFrame(root, fg_color="transparent", border_width=0)
     content_frame.pack(fill="both", expand=True, padx=20, pady=(0, 20))
 
-    sidebar = ctk.CTkFrame(content_frame, width=320, height=700, corner_radius=12, border_width=1)
-    sidebar.pack(side="left", fill="y", padx=(0, 10))
+    sidebar = ctk.CTkFrame(content_frame, width=320, fg_color="#ecd1b0", corner_radius=16, border_width=0)
+    sidebar.pack(side="left", fill="y", padx=(0, 12))
 
-    main_area = ctk.CTkFrame(content_frame, fg_color="transparent")
+    main_area = ctk.CTkFrame(content_frame, fg_color="transparent", border_width=0)
     main_area.pack(side="right", fill="both", expand=True)
 
     sidebar_title = ctk.CTkLabel(sidebar, text="Project Files", font=SUBHEADING)
-    sidebar_title.pack(pady=(12, 8))
+    sidebar_title.pack(anchor="w", padx=14, pady=(12, 6))
 
-    tree_area = ctk.CTkScrollableFrame(sidebar, width=300, height=640)
+    sidebar_subtitle = ctk.CTkLabel(sidebar, text="Browse the repository structure", font=BODY)
+    sidebar_subtitle.pack(anchor="w", padx=14, pady=(0, 8))
+
+    tree_area = ctk.CTkScrollableFrame(sidebar, width=300, height=640, fg_color="#ecd1b0", corner_radius=12, border_width=0 )
     tree_area.pack(fill="both", expand=True, padx=10, pady=(0, 10))
 
     selected_file = None
@@ -724,11 +755,12 @@ def analysis_screen():
             folder_label = ctk.CTkButton(
                 parent_frame,
                 text=f"{prefix}📁 {path.name}",
-                fg_color="transparent",
-                hover_color="#E6F2FF",
+                fg_color="#ecd1b0",
+                hover_color="#ecd1b0",
                 border_width=0,
                 anchor="w",
                 command=lambda: None,
+                font=BODY
             )
             folder_label.pack(anchor="w", padx=6, pady=2)
 
@@ -737,110 +769,153 @@ def analysis_screen():
                     continue
                 add_tree(parent_frame, child, prefix + "  ")
         else:
-            rel_path = path.relative_to(CURRENT_PROJECT_PATH)
+            try:
+                rel_path = path.relative_to(CURRENT_PROJECT_PATH)
+            except Exception:
+                rel_path = path.name
+
             file_button = ctk.CTkButton(
                 parent_frame,
                 text=f"{prefix}📄 {rel_path}",
-                fg_color="transparent",
-                hover_color="#E6F2FF",
+                fg_color="#ecd1b0",
+                hover_color="#e0b47e",
                 border_width=0,
                 anchor="w",
                 command=lambda p=path: select_file(p),
+                font=FONT_CODE
             )
             file_button.pack(anchor="w", padx=6, pady=2)
 
     add_tree(tree_area, CURRENT_PROJECT_PATH)
 
-    tab_frame = ctk.CTkFrame(main_area, fg_color="transparent")
+    tab_frame = ctk.CTkFrame(main_area, fg_color="transparent", border_width=0)
     tab_frame.pack(fill="x", pady=(0, 8))
+
+    tab_buttons = {}
 
     def set_tab(tab_name):
         nonlocal current_tab
         current_tab = tab_name
         render_content()
 
-    tab_names = ["code", "readme", "lang", "license", "libs", "requirements"]
-    for name in tab_names:
-        label = name.replace("lang", "lang %").replace("libs", "libs").replace("requirements", "requirements")
+    def update_tab_style():
+        for name, button in tab_buttons.items():
+            if name == current_tab:
+                button.configure( hover_color="#791118", text_color="white", border_width=3)
+            else:
+                button.configure(hover_color="#791118", text_color="#ffffff", border_width=0)
+
+    tab_names = {
+        "code": "Code",
+        "readme": "README",
+        "lang": "Languages",
+        "license": "License",
+        "libs": "Libraries",
+        "requirements": "Requirements",
+    }
+
+    for name, label in tab_names.items():
         button = ctk.CTkButton(
             tab_frame,
-            text=label.title(),
+            text=label,
             width=110,
             height=34,
+            corner_radius=10,
             command=lambda n=name: set_tab(n),
         )
         button.pack(side="left", padx=4)
+        tab_buttons[name] = button
 
-    content_panel = ctk.CTkFrame(main_area, corner_radius=12, border_width=1)
+    content_panel = ctk.CTkFrame(main_area, fg_color="#e0b47e", corner_radius=16, border_width=2)
     content_panel.pack(fill="both", expand=True)
 
     def render_content():
         for widget in content_panel.winfo_children():
             widget.destroy()
 
+        update_tab_style()
+
         if current_tab == "code":
             if selected_file and selected_file.exists():
+
+                
                 try:
                     text = selected_file.read_text(encoding="utf-8", errors="ignore")
                 except Exception:
                     text = "Unable to read this file."
 
-                title = ctk.CTkLabel(content_panel, text=f"Code: {selected_file.relative_to(CURRENT_PROJECT_PATH)}", font=SUBHEADING)
+                try:
+                    rel_path = selected_file.relative_to(CURRENT_PROJECT_PATH)
+                except Exception:
+                    rel_path = selected_file.name
+
+                title = ctk.CTkLabel(content_panel, text=f"Code Preview", font=SUBHEADING, border_width=0)
                 title.pack(anchor="w", padx=12, pady=(10, 6))
 
-                code_box = ctk.CTkTextbox(content_panel, height=560, wrap="word")
-                code_box.insert("0.0", text[:12000])
-                code_box.configure(state="disabled")
+                meta_frame = ctk.CTkFrame(content_panel, fg_color="transparent")
+                meta_frame.pack(fill="x", padx=12, pady=(0, 8))
+
+                meta_label = ctk.CTkLabel(meta_frame, text=f"File: {rel_path}", font=BODY)
+                meta_label.pack(anchor="w")
+
+                code_box = ctk.CTkTextbox(content_panel, height=560, wrap="word", corner_radius=10)
+                code_box.insert("0.0", text[:14000])
+                code_box.configure(state="disabled", font=FONT_CODE)
                 code_box.pack(fill="both", expand=True, padx=10, pady=(0, 10))
             else:
-                empty_label = ctk.CTkLabel(content_panel, text="Select a file from the sidebar to view its contents.", font=BODYBIG)
+                empty_label = ctk.CTkLabel(content_panel, text="Select a file from the sidebar to view its contents.", font=BODYBIG, text_color="#64748b")
                 empty_label.pack(expand=True)
 
         elif current_tab == "readme":
-            title = ctk.CTkLabel(content_panel, text="README", font=SUBHEADING)
+            title = ctk.CTkLabel(content_panel, text="README", font=SUBHEADING, text_color="#111827")
             title.pack(anchor="w", padx=12, pady=(10, 6))
-            readme_box = ctk.CTkTextbox(content_panel, height=560, wrap="word")
-            readme_box.insert("0.0", analysis["readme"][:12000])
-            readme_box.configure(state="disabled")
+
+            readme_box = ctk.CTkTextbox(content_panel, height=560, wrap="word", corner_radius=10)
+            readme_box.insert("0.0", analysis["readme"][:14000])
+            readme_box.configure(state="disabled", font=BODY)
             readme_box.pack(fill="both", expand=True, padx=10, pady=(0, 10))
 
         elif current_tab == "lang":
-            title = ctk.CTkLabel(content_panel, text="Language Breakdown", font=SUBHEADING)
+            title = ctk.CTkLabel(content_panel, text="Language Breakdown", font=SUBHEADING, text_color="#111827")
             title.pack(anchor="w", padx=12, pady=(10, 6))
-            lang_box = ctk.CTkTextbox(content_panel, height=560, wrap="word")
+
+            lang_box = ctk.CTkTextbox(content_panel, height=560, wrap="word", corner_radius=10)
             if analysis["languages"]:
                 for lang, count, percent in analysis["languages"]:
                     lang_box.insert("end", f"{lang}: {count} lines ({percent}%)\n")
             else:
                 lang_box.insert("end", "No code files detected.")
-            lang_box.configure(state="disabled")
+            lang_box.configure(state="disabled", font=BODY)
             lang_box.pack(fill="both", expand=True, padx=10, pady=(0, 10))
 
         elif current_tab == "license":
-            title = ctk.CTkLabel(content_panel, text="License", font=SUBHEADING)
+            title = ctk.CTkLabel(content_panel, text="License", font=SUBHEADING, text_color="#111827")
             title.pack(anchor="w", padx=12, pady=(10, 6))
-            license_box = ctk.CTkTextbox(content_panel, height=560, wrap="word")
-            license_box.insert("0.0", analysis["license"][:12000] if analysis["license"] else "No license found.")
-            license_box.configure(state="disabled")
+
+            license_box = ctk.CTkTextbox(content_panel, height=560, wrap="word", corner_radius=10)
+            license_box.insert("0.0", analysis["license"][:14000] if analysis["license"] else "No license found.")
+            license_box.configure(state="disabled", font=BODY)
             license_box.pack(fill="both", expand=True, padx=10, pady=(0, 10))
 
         elif current_tab == "libs":
-            title = ctk.CTkLabel(content_panel, text="Libraries / Dependencies", font=SUBHEADING)
+            title = ctk.CTkLabel(content_panel, text="Libraries / Dependencies", font=SUBHEADING, text_color="#111827")
             title.pack(anchor="w", padx=12, pady=(10, 6))
-            libs_box = ctk.CTkTextbox(content_panel, height=560, wrap="word")
+
+            libs_box = ctk.CTkTextbox(content_panel, height=560, wrap="word", corner_radius=10)
             if analysis["libraries"]:
                 libs_box.insert("end", "\n".join(analysis["libraries"]))
             else:
                 libs_box.insert("end", "No dependency files detected.")
-            libs_box.configure(state="disabled")
+            libs_box.configure(state="disabled", font=BODY)
             libs_box.pack(fill="both", expand=True, padx=10, pady=(0, 10))
 
         elif current_tab == "requirements":
-            title = ctk.CTkLabel(content_panel, text="Requirements / Dependency Files", font=SUBHEADING)
+            title = ctk.CTkLabel(content_panel, text="Requirements / Dependency Files", font=SUBHEADING, text_color="#111827")
             title.pack(anchor="w", padx=12, pady=(10, 6))
-            req_box = ctk.CTkTextbox(content_panel, height=560, wrap="word")
-            req_box.insert("0.0", analysis["requirements"][:12000])
-            req_box.configure(state="disabled")
+
+            req_box = ctk.CTkTextbox(content_panel, height=560, wrap="word", corner_radius=10)
+            req_box.insert("0.0", analysis["requirements"][:14000])
+            req_box.configure(state="disabled", font=BODY)
             req_box.pack(fill="both", expand=True, padx=10, pady=(0, 10))
 
     render_content()

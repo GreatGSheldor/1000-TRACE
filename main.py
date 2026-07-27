@@ -670,8 +670,8 @@ def project_selection_screen():
 def analysis_screen():
     global window_width, window_height, window_title
 
-    window_width = 1500
-    window_height = 1000
+    window_width = 1600
+    window_height = 950
     window_title = "TRACE v1.0 - Analysis"
 
     update_window()
@@ -739,7 +739,7 @@ def analysis_screen():
     sidebar_subtitle = ctk.CTkLabel(sidebar, text="Browse the repository structure", font=BODY)
     sidebar_subtitle.pack(anchor="w", padx=14, pady=(0, 8))
 
-    tree_area = ctk.CTkScrollableFrame(sidebar, width=300, height=640, fg_color="#ecd1b0", corner_radius=12, border_width=0 )
+    tree_area = ctk.CTkScrollableFrame(sidebar, width=450, height=640, fg_color="#ecd1b0", corner_radius=12, border_width=0 )
     tree_area.pack(fill="both", expand=True, padx=10, pady=(0, 10))
 
     selected_file = None
@@ -835,10 +835,51 @@ def analysis_screen():
 
         update_tab_style()
 
+        
+
         if current_tab == "code":
             if selected_file and selected_file.exists():
 
-                
+                extension = selected_file.suffix.lower()
+
+                if extension in IMAGE_EXTENSIONS:
+
+                    title = ctk.CTkLabel(
+                        content_panel,
+                        text="Image Preview",
+                        font=SUBHEADING,
+                    )
+                    title.pack(anchor="w", padx=12, pady=(10, 6))
+
+                    image = Image.open(selected_file)
+
+                    MAX_WIDTH = 900
+                    MAX_HEIGHT = 600
+
+                    w, h = image.size
+
+                    scale = min(
+                        MAX_WIDTH / w,
+                        MAX_HEIGHT / h,
+                        1,
+                    )
+
+                    preview = ctk.CTkImage(
+                        light_image=image,
+                        dark_image=image,
+                        size=(int(w * scale), int(h * scale)),
+                    )
+
+                    image_label = ctk.CTkLabel(
+                        content_panel,
+                        image=preview,
+                        text="",
+                    )
+
+                    image_label.pack(expand=True)
+
+                    return
+
                 try:
                     text = selected_file.read_text(encoding="utf-8", errors="ignore")
                 except Exception:
@@ -852,7 +893,7 @@ def analysis_screen():
                 title = ctk.CTkLabel(content_panel, text=f"Code Preview", font=SUBHEADING, border_width=0)
                 title.pack(anchor="w", padx=12, pady=(10, 6))
 
-                meta_frame = ctk.CTkFrame(content_panel, fg_color="transparent")
+                meta_frame = ctk.CTkFrame(content_panel, fg_color="transparent", border_width=0)
                 meta_frame.pack(fill="x", padx=12, pady=(0, 8))
 
                 meta_label = ctk.CTkLabel(meta_frame, text=f"File: {rel_path}", font=BODY)

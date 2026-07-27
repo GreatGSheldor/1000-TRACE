@@ -602,8 +602,8 @@ def project_selection_screen():
             selected_project_path = Path(directory).resolve()
             update_description_labels(selected_project_path)
 
-    local_button = ctk.CTkButton(selection_frame, text="Select Directory", font=BODY, height=40, command=select_local_directory)
-    local_button.pack(pady=(0, 10))
+    local_button = ctk.CTkButton(selection_frame, text="Select Directory", font=BODY, height=50, command=select_local_directory)
+    local_button.pack(pady=(10, 10))
 
     project_description_frame = ctk.CTkFrame(root, width=900, height=200, corner_radius=12, border_width=1)
     project_description_frame.pack(pady=(10, 20), padx=25, fill="both", expand=True)

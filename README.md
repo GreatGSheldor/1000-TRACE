@@ -86,13 +86,7 @@ Available from the new
   <img src="assets/analysis.png" alt="Analysis Window" width="700">
 </p>
 
-### Demo Video
-
-<p align="center">
-  <video width="640" height="360" controls poster="assets/analysis.png">
-    <source src="demo-vid.mp4" type="video/mp4">
-  </video>
-</p>
+<a href="https://github.com/GreatGSheldor/1000-TRACE/blob/master/demo-vid"> ### Demo Video </a>
 
 > Screenshots will be updated as TRACE evolves.
 

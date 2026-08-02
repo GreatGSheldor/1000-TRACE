@@ -52,8 +52,7 @@ Originally built for **SFHS CODE Hack 7**, TRACE is now an active **TriCode Club
 - Modern desktop interface
 
 ### AI Analysis (Digital Forensics & Repository Intelligence)
-
-Built for **AI for Smart Forensics & Public Safety**. Available from the new
+Available from the new
 **AI Analysis** section of the sidebar once a project is opened:
 
 | Feature | What it does |
@@ -63,7 +62,7 @@ Built for **AI for Smart Forensics & Public Safety**. Available from the new
 | 💬 Repository Chat | Ask questions about the codebase ("What starts the application?", "Where is auth handled?"). Only relevant files are sent to Gemini, never the whole repo. |
 | 🛡️ Threat Scan | Static regex scan for dangerous APIs (`eval`, `exec`, `os.system`, `pickle.loads`, sockets, PowerShell invocation, registry access, etc.), optionally paired with an AI analyst summary. |
 | 🔑 Secret Scan | Static regex scan for exposed credentials (AWS/Google/Gemini keys, JWTs, private keys, passwords, bearer tokens, DB connection strings). |
-| 📋 Generate Report | Combines the summary, risk score (0-100), and both scans into a Markdown forensic report you can export. |
+| 📋 Generate Report | Combines the summary, risk score (0-100), and both scans into a Markdown report you can export. |
 
 **Setup:** the AI features need a Gemini API key. Kindly make a file called "gemini_key.txt" in base-dir and paste your api-key there
 

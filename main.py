@@ -183,7 +183,7 @@ def get_project_author(path, repo_url=None):
 
 def clone_repo(repo_url):
     if not shutil.which("git"):
-        raise RuntimeError("Git is not installed or not available on PATH.")
+        raise RuntimeError(" Git is not installed or not available on PATH.")
 
     repo_name = repo_url.rstrip("/").split("/")[-1]
     if repo_name.endswith(".git"):

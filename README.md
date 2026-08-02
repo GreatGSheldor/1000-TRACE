@@ -7,7 +7,7 @@
 
 <p align="center">
   <strong>Toolkit for Reverse Analysis & Code Exploration</strong><br>
-  Version 1.2.2
+  Version 2.0.2
 </p>
 
 <p align="center">

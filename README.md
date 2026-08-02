@@ -89,7 +89,7 @@ Available from the new
 ### Demo Video
 
 <p align="center">
-  <video width="640" height="360" controls poster="/assets/analysis.png">
+  <video width="640" height="360" controls poster="assets/analysis.png">
     <source src="demo-vid.mp4" type="video/mp4">
   </video>
 </p>

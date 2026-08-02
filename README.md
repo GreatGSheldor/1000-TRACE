@@ -90,8 +90,8 @@ Available from the new
 
 <p align="center">
   <video width="640" height="360" controls poster="/assets/analysis.png">
-  <source src="demo-vid.mp4" type="video/mp4">
-</video>
+    <source src="demo-vid.mp4" type="video/mp4">
+  </video>
 </p>
 
 > Screenshots will be updated as TRACE evolves.
